@@ -21,10 +21,10 @@ router.delete("/:id"): Should be accessible to role superadmin only. This route 
 */
 
 //Add middlewares here
-router.get("/", getAllUsers);
-router.get("/:id", getUserByID);
-router.post("/", createUser);
-router.patch("/:id", updateUser);
-router.delete("/:id", deleteUser);
+router.get("/",grantAccessTo(["user","admin","superadmin"]), getAllUsers);
+router.get("/:id",grantAccessTo(["user","admin","superadmin"]) ,getUserByID);
+router.post("/",grantAccessTo(["user","guest","admin","superadmin"]), createUser);
+router.patch("/:id",grantAccessTo(["admin","superadmin"]), updateUser);
+router.delete("/:id",grantAccessTo(["superadmin"]), deleteUser);
 
 module.exports = router;
